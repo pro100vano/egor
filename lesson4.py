@@ -22,7 +22,7 @@ class MyClass2(MyClass):
         return result + 1
 
 
-my_class = MyClass()
+# my_class = MyClass()
 
 #
 # my_class = MyClass(variable="Егор")
