@@ -38,6 +38,12 @@ class MainMenu:
             self.get_command()
 
 
+    def all_product(self): pass
+
+
+    def create_product(self): pass
+
+
     def Exit(self):
         print("Завершение работы...")
 
