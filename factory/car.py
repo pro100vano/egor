@@ -18,6 +18,8 @@ class Car(abc.ABC):
             self.boost_speed = kwargs.get('boost_speed')
         if kwargs.get('fuel') is not None:
             self.fuel = kwargs.get('fuel')
+        if kwargs.get('fuel_max') is not None:
+            self.fuel = kwargs.get('fuel_max')
         if kwargs.get('price') is not None:
             self.price = kwargs.get('price')
         if kwargs.get('color') is not None:
