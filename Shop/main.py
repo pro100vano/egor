@@ -18,7 +18,7 @@ class MainMenu:
         },
         {
             'title': 'Завершить работу',
-            'func': "exit"
+            'func': "Exit"
         },
     ]
 
