@@ -16,7 +16,8 @@ class Product(abc.ABC):
             self.count = kwargs.get('count')
 
 
-    def get_info(self): pass
+    def get_info(self):
+        return f"Продукт {self.name}, стоит {self.price} руб, количество: {self.count}"
 
 
 
