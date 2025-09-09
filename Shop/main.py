@@ -1,6 +1,5 @@
 class MainMenu:
 
-
     menu = [
         {
             'title': 'Все товары',
@@ -16,17 +15,13 @@ class MainMenu:
         },
     ]
 
-
     def __init__(self):
         self.get_command()
-
-
 
     def show_menu(self):
         print("\n Главное меню: \n")
         for i, item in enumerate(self.menu):
             print(f"{i+1}) {item.get('title')}")
-
 
     def get_command(self):
         self.show_menu()

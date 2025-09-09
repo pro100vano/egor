@@ -1,7 +1,7 @@
 import abc
 
 
-class Shop(abc.ABC):
+class Product(abc.ABC):
     name = None
     price = None
     count = None #колличество
