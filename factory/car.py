@@ -1,8 +1,10 @@
 import abc
+from tkinter import Tk
 
 
 class Car(abc.ABC):
 
+    car_window = None  # Окно для создания машины
     max_speed = None  # Макс скорорсть
     boost_speed = None  # Ускорение
     fuel = None  # Вид топлива
@@ -35,3 +37,15 @@ class Car(abc.ABC):
 
     @abc.abstractmethod
     def get_fuel_max(self): pass
+
+    def asks(self):
+        self.car_window = Tk()
+        self.car_window.title(self.model)
+        self.car_window.geometry("300x400")
+
+    def get_params(self):
+        response = {
+            "model": self.model,
+            "color": self.color
+        }
+        return response

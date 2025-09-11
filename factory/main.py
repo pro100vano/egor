@@ -1,66 +1,75 @@
 import model_a1
+from tkinter import ttk, Tk
+import json
+import gc
 
 
 class MainMenu:
 
+    window = None  # дочернее окно
     models = {
-        'A1': 'model_a1.ModelA1'
+        'A1': model_a1.ModelA1
     }
     cars = []
-    menu = [
-        {
-            'title': 'Статистика',
-            "func": "show_stat"
-        },
-        {
-            'title': 'Создать авто',
-            "func": 'create_auto'
-        },
-        {
-            'title': 'Выход',
-            "func": 'exit'
-        },
-    ]
+    menu = []
 
     def __init__(self):
-        self.get_command()
+        # наполнение меню
+        self.menu.append({"title": "Статистика", "func": self.draw_stat})
+        self.menu.append({"title": "Создать авто", "func": self.create_auto})
 
-    def show_menu(self):
-        print("\n\n--||--")
-        print("Главное меню: \n")
-        for i, item in enumerate(self.menu):
-            print(f"{i + 1}) {item.get('title')}")
+        # создание окна
+        root = Tk()
+        root.title('Мой завод')
+        root.geometry("300x200")
+        self.draw_menu()
+        self.load_data()
+        root.mainloop()
 
-    def get_command(self):
-        self.show_menu()
-        command = input('Выберите пункт меню: ')
-        try:
-            eval('self.' + self.menu[int(command) - 1].get('func'))()
-        except Exception:
-            print('Неверный пункт меню')
-            self.get_command()
+    def draw_menu(self):
+        for item in self.menu:
+            btn = ttk.Button(text=item.get('title'), command=item.get('func'))
+            btn.pack()
 
-    def show_stat(self):
-        print(f'Статистика:\nКол-во машин: {self.cars.__len__()}')
+    def draw_stat(self):
+        self.window = Tk()
+        self.window.title("Статистика")
+        self.window.geometry("400x600")
+        ttk.Label(self.window, text=f"Кол-во машин: {self.cars.__len__()}").pack()
         if self.cars.__len__() > 0:
-            print("Список машин:")
+            ttk.Label(self.window, text=f"Список машин").pack()
             for car in self.cars:
-                print(car.get_info())
-        self.get_command()
+                ttk.Label(self.window, text=f"{car.get_info()}").pack()
 
     def create_auto(self):
-        print("\n\n--||-- \nСоздание авто: \n")
-        models_list = "Доступные модели: "
+        self.window = Tk()
+        self.window.title("Создать авто")
+        self.window.geometry("300x200")
+        ttk.Label(self.window, text="Выберите модель").pack()
         for model in self.models:
-            models_list += f"{model}, "
-        print(models_list)
-        command = input('Название модели: ')
-        self.cars.append(eval(self.models.get(command))())
-        print("Машина создана!")
-        self.get_command()
+            ttk.Button(self.window, text=model, command= lambda: self.add_car(model)).pack()
 
-    def exit(self):
-        print('Завершение работы...')
+    def add_car(self, model):
+        self.cars.append(self.models[model]().asks())
+        self.window.destroy()
+
+    def load_data(self):
+        try:
+            with open('./data.json', 'r') as f:
+                for car in json.loads(f.read()):
+                    car_class = ""
+                    car_paras = ""
+                    for param in car:
+                        if param != 'class':
+                            car_paras += f'{param}="{car[param]}", '
+                    self.cars.append(eval(f"{car.get('class')}({car_paras[0:-2]})"))
+        except Exception:
+            print('Пустая бд')
+
+    def save_data(self):
+        with open('./data.json', 'w+') as f:
+            f.write(json.dumps([car.get_params() for car in self.cars]))
 
 
-MainMenu()
+main_window = MainMenu()
+main_window.save_data()
