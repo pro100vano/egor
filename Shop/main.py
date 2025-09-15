@@ -39,7 +39,6 @@ class MainMenu:
             print("\nТакого пункта меню не существует")
             self.get_command()
 
-
     def all_product(self):
         print(f"В магазине:\nНаименований: {self.products.__len__()}")
         if self.products.__len__() > 0:
@@ -59,13 +58,8 @@ class MainMenu:
         print("Продукт добавлен")
         self.get_command()
 
-
-
-
     def Exit(self):
         print("Завершение работы...")
-
-
 
 
 MainMenu()
