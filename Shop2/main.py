@@ -35,7 +35,7 @@ class MainMenu:
         self.window = Tk()
         self.window.title('Добавить продукт')
         self.window.geometry('300x200')
-        name_create = ttk.Entry(t)
+        name_create = ttk.Entry()
         cost_create = int(input("Введите количество: "))
         product_create = {'name': name_create,
                           'cost': cost_create}
