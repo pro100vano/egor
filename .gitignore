@@ -1,2 +1,12 @@
-.idea/
 /factory/data.json
+
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
